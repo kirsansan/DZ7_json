@@ -1,6 +1,6 @@
 # This is a simple Python script. ;-)
 # HomeWork from lesson 7.2. Python 20 groupe
-# writted by Kirill.S
+# was written by Kirill.S
 
 # from basic_word import BasicWord
 # from player import Player
@@ -18,17 +18,19 @@ if __name__ == '__main__':
     professions_options: dict = [item['title'] for item in professions_data]
 
     input_and_check: InputAndCheckString = InputAndCheckString()  # string for work with user
-    input_and_check.input_while_correct("Введите номер студента >")
+    input_and_check.input_while_correct(f"Введите номер студента от 1 до {len(students_dict)} >")
 
     number_of_student: str = input_and_check.input_string
     # print(input_and_check.input_string)
-    if number_of_student.isdigit() and int(number_of_student) in range(0, len(students_dict)):
+    if number_of_student.isdigit() and int(number_of_student) in range(1, len(students_dict) + 1):
         one_student_data = get_student_by_pk(int(number_of_student), students_dict)
     else:
         print("Нет такого студента!")
         quit(101)   # HR must reread CVV
 
-    input_and_check.input_while_correct(f"Выберите специальность для оценки "
+    all_possible_professoins = " ".join(professions_options)
+    input_and_check.input_while_correct(f'Вот все возможные профессии {all_possible_professoins}\n'
+                                        f"Выберите специальность для оценки "
                                         f"студента {one_student_data['full_name']} >")
     what_is_level_hr_need: str = input_and_check.input_string
 
@@ -41,14 +43,14 @@ if __name__ == '__main__':
         quit(102) # HR must be fire
     #print(what_is_a_skills4need)
 
-    i_kwon_all_about_this_student: dict = check_fitness(one_student_data, skills_for_hr)
+    i_know_all_about_this_student: dict = check_fitness(one_student_data, skills_for_hr)
     print("Пригодность: ", i_know_all_about_this_student['fit_percent'])
-    print(one_student_data['full_name'], "знает", ', '.join(i_kwon_all_about_this_student['has']))
-    print(one_student_data['full_name'], "не знает", ', '.join(i_kwon_all_about_this_student['lacks']))
+    print(one_student_data['full_name'], "знает:", ', '.join(i_know_all_about_this_student['has']))
+    print(one_student_data['full_name'], "не знает:", ', '.join(i_know_all_about_this_student['lacks']))
 
     if True:
         print("Таких не берут в космонавты (с) ")
     else:
-        print("Если вы проверяете этот код - как получить доступ к урокам с 10 по 13?")
+        print("Если вы проверяете этот код - помогите мне получить доступ к урокам с 10 по 16!!")
 
 # this is end of this short history

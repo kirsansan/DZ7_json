@@ -2,10 +2,10 @@
 
 
 class InputAndCheckString:
-
-    input_string: str = ""
-    is_correct: bool = False
-    is_empty: bool = True
+    # we don't need use cls-variable and will use only self-variables (from __init__ constructor)
+    # input_string: str = ""
+    # is_correct: bool = False
+    # is_empty: bool = True
 
     def __init__(self, input_string: str = ""):
         self.input_string = input_string
@@ -60,9 +60,18 @@ class InputAndCheckString:
 
 
 # Block for self-testing
-if __name__ == '__main__':
-    test_input_string = InputAndCheckString("....1234")
-    print(test_input_string.verify_correct())  # wait for False
+def test():
+    try:
+        test_input_string = InputAndCheckString("....1234")
+        assert not test_input_string.verify_correct()
+        test_input_string.input_string = "   .- -- . "
+        assert test_input_string.verify_correct()
+    except AssertionError:
+        print("You have errors, check your functions")
+    else:
+        print("Ok. All test passed")
 
-    test_input_string.input_string = "   .- -- . "
-    print(test_input_string.verify_correct())  # wait for True
+
+if __name__ == '__main__':
+    test()
+
